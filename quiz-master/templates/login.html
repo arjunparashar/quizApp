@@ -1,0 +1,41 @@
+{% extends 'base.html' %} {% block title %} Login- Quiz Master {% endblock %} {%
+block content %} {% include 'homeNav.html' %}
+<h1 class="h1 text-center text-white mt-3">Welcome to Quiz Master</h1>
+<div class="row mx-auto">
+  <form method="post" class="text-center py-4 mt-5 text-white" action="/login">
+    <h1 class="h3 text-center text-white">Login</h1>
+    <label for="userid" class="form-label text-center mt-3"
+      >Registered User Id
+      <input
+        type="text"
+        name="userid"
+        id="userid"
+        class="mt-2 form-control"
+        required
+      />
+    </label>
+    <br />
+    <label for="password" class="form-label text-center mt-1"
+      >Password
+      <input
+        type="password"
+        name="password"
+        id="password"
+        class="mt-2 form-control"
+        required
+      />
+    </label>
+    <br />
+
+    <div class="col-lg-12 mt-3 gap-3">
+      <input type="submit" value="Login" class="btn btn-success" />
+      <a class="btn btn-primary float-mid" href="{{url_for('register')}}">
+        Signup
+      </a>
+    </div>
+  </form>
+</div>
+
+{% endblock %} {% block style %}
+<style></style>
+{% endblock %}

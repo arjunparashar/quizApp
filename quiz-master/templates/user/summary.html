@@ -1,0 +1,109 @@
+{% extends 'base.html' %} {% block title %} Quiz Master {% endblock %} {% block
+content %} {% include 'user/userNav.html' %}
+<h1 class="h1 text-center text-white mt-3 mb-5">User Summary</h1>
+
+
+<div class="row mx-5 text-white">
+    <div class="col-lg-6 py-2 text-center">
+        <h1>Subjects</h1>
+        <div id="subChart" style="width:100%; height:300px;">
+
+        </div>
+    </div>
+    <div class="col-lg-6 py-2 text-center">
+        <h1>Quizzes</h1>
+<div id="quizChart" style="width:100%; height:300px;">
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+var chartDom = document.getElementById('subChart');
+var myChart = echarts.init(chartDom, 'dark');
+var option;
+option = {
+title: {
+    text: 'Quiz Scores(%)/Chapter'
+  },
+tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'shadow'
+    }
+  },
+  legend: {},
+  xAxis: {
+    type: 'category',
+    data: [
+    {%for c in user_scores%}
+        '{{c.chapter}}',
+    {%endfor%}
+    ]
+  },
+  yAxis: {
+    type: 'value',
+minInterval: 1,
+  },
+  series: [
+    {
+      data: [{%for c in user_scores%}
+        {value:{{c.total_scored}},name:'{{c.chapter}}'},
+    {%endfor%}],
+      type: 'bar'
+    }
+  ]
+};
+
+option && myChart.setOption(option);
+
+
+var chartDom1 = document.getElementById('quizChart');
+var myChart = echarts.init(chartDom1, 'dark');
+var option1;
+option1 = {
+
+title: {
+    text: 'Quiz Attempts'
+  },
+  tooltip: {
+    trigger: 'item'
+  },
+  legend: {
+    top: '5%',
+    left: 'center'
+  },
+  series: [
+    {
+      name: 'Quiz',
+      type: 'pie',
+      radius: ['40%', '70%'],
+      avoidLabelOverlap: false,
+      itemStyle: {
+        borderRadius: 10,
+        borderColor: '#fff',
+        borderWidth: 2
+      },
+      label: {
+        show: false,
+        position: 'center'
+      },
+
+      labelLine: {
+        show: false
+      },
+      data: [
+
+        {% for s in user_quizzes %}
+                {name:'{{s.subject_name}}',value:{{s.quiz_count}}},
+        {% endfor %}
+      ]
+    }
+  ]
+};
+
+option1 && myChart.setOption(option1);
+
+{% endblock %}

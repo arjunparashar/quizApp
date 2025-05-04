@@ -1,0 +1,83 @@
+{% extends 'base.html' %} {% block title %} Quiz Master {% endblock %} {% block
+content %} {% include 'admin/adminNav.html' %}
+<h1 class="h1 text-center text-white my-3">Quiz</h1>
+<div class="row">
+  {% for quiz in quizzes %}
+  <div class="col-sm-2"></div>
+  <div class="col-sm-8">
+    <div class="card text-bg-secondary mb-3">
+      <div class="card-header font-bold text-center text-xl">
+        {{quiz.chapter.name}} Quiz - {{quiz.id}}
+      </div>
+      <div class="card-body">
+        <div class="row px-2 py-2">
+          <div class="col-lg-2 bg-dark rounded py-auto">
+            <p class="py-2 my-0">Date - {{quiz.date_of_quiz}}</p>
+          </div>
+          <div class="col-lg-8">
+
+          </div>
+          <div class="col-lg-2 bg-dark rounded py-auto">
+            <p class="py-2 my-0">Duration - {{quiz.hour_duration}}:{{quiz.min_duration}}</p>
+          </div>
+        </div>
+        <table
+          class="table table-dark table-rounded table-bordered rounded rounded-lg text-center"
+        >
+          <thead>
+
+            <tr class="">
+              <th scope="col">Question Title</th>
+              <th scope="col">Question Statement</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for question in quiz.questions %}
+            <tr>
+              <td>{{question.question_title}}</td>
+              <td>
+                {{question.question_statement[0:20]}}...
+              </td>
+              <td>
+                <a
+                  href="/question/edit?question={{question.id}}"
+                  class="btn btn-sm btn-primary"
+                  >Edit</a
+                >&nbsp;
+                <a
+                  href="/question/delete?question={{question.id}}"
+                  class="btn btn-sm btn-primary"
+                  >Delete</a
+                >
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <a href="/question/add?quiz={{quiz.id}}" class="btn btn-warning"
+          >Add Question</a
+        >
+        <a href="/quiz/edit?quiz={{quiz.id}}" class="btn btn-primary"
+          >Edit Quiz</a
+        >
+        <a href="/quiz/delete?quiz={{quiz.id}}" class="btn btn-danger"
+          >Delete Quiz</a
+        >
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-2"></div>
+  {% endfor %}
+</div>
+
+
+<div class="row my-5">
+  <div class="col-lg-12 text-center">
+    <a href="{{url_for('admin_dashboard')}}" target="_blank" class="btn btn-lg btn-primary"
+      ><span class="h1 font-bold text-white" style="color: white">&#43;</span
+      ><br />Add Quiz</a
+    >
+  </div>
+</div>
+{% endblock %}

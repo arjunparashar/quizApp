@@ -1,0 +1,47 @@
+{% extends 'base.html' %} {% block title %} Quiz Master {% endblock %} {% block
+content %} {% include 'admin/adminNav.html' %}
+
+<form
+  method="post"
+  class="text-center py-4 mt-5 text-white"
+  action="/user/delete?user={{user_id}}"
+>
+  <h1 class="h3 text-center text-white">Delete User</h1>
+  <div class="row col-lg-12 pt-5 mx-auto">
+            <div class="col-lg-6 mx-auto">
+            <div class="input-group mb-3 col-lg-4">
+              <span class="input-group-text">Username&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <input type="text" name="userid" id="userid" class="form-control" value="{{user.userid}}" disabled/>
+            </div>
+
+            <div class="input-group mb-3 col-lg-4">
+              <span class="input-group-text">Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <input type="text" name="name" id="name" class="form-control" value="{{user.name}}" disabled/>
+            </div>
+
+            <div class="input-group mb-3 col-lg-4">
+              <span class="input-group-text">Qualification&nbsp;</span>
+              <input type="text" name="qualification" id="qualification" class="form-control" value="{{user.qualification}}" disabled/>
+            </div>
+
+
+            <div class="input-group mb-3 col-lg-4">
+              <span class="input-group-text">Date Of Birth</span>
+              <input type="date" name="dob" id="dob" class="form-control" value="{{user.dob}}" disabled/>
+            </div>
+
+                <div class="input-group mb-3 col-lg-4">
+              <span class="input-group-text">Date Of Birth</span>
+              <input type="date" name="createdon" id="createdon" class="form-control" value="{{user.created_on}}" disabled/>
+            </div>
+        </div>
+            <div class="col-lg-12 mt-3 gap-3">
+        <input type="submit" value="Delete User" class="btn btn-danger" />
+        <a class="btn btn-warning" href="{{url_for('user_details')}}"
+          >Go Back</a
+        >
+      </div>
+  </div>
+</form>
+
+{% endblock %} {% block script %} {% endblock %}

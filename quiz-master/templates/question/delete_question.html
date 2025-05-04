@@ -1,0 +1,122 @@
+{% extends 'base.html' %} {% block title %} Quiz Master {% endblock %} {% block
+content %} {% include 'admin/adminNav.html' %}
+
+<form
+  method="post"
+  class="text-center py-4 mt-5 text-white"
+  action="/question/delete?question={{question_id}}"
+>
+  <h1 class="h3 text-center text-white">Delete Question</h1>
+  <div class="row col-lg-12 pt-5 mx-auto">
+        <div class="col-lg-6 mx-auto">
+      <div class="input-group mb-3 col-lg-4">
+        <span class="input-group-text">Chapter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <select class="form-select" name="chapter" id="chapter" disabled>
+          <option selected>{{question.quiz.chapter.name}}</option>
+        </select>
+      </div>
+      <div class="input-group mb-3 col-lg-4">
+        <span class="input-group-text"
+          >Question
+          Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+        >
+        <input
+          type="text"
+          name="question_title"
+          id="question_title"
+          class="form-control"
+          value="{{question.question_title}}"
+          required disabled
+        />
+      </div>
+
+      <div class="input-group mb-3 col-lg-4">
+        <span class="input-group-text"
+          >Question Statement</span
+        >
+        <textarea
+          class="form-control"
+          id="question_statement"
+          name="question_statement"
+          rows="3"
+          required disabled
+        >{{question.question_statement}}</textarea>
+      </div>
+
+      <div class="border border-secondary rounded p-2">
+        <div class="input-group mb-3 col-lg-4">
+        <span class="input-group-text"
+          >Option 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+        >
+        <input
+          type="text"
+          name="option_1"
+          id="option_1"
+          class="form-control"
+          value="{{question.option_1}}"
+          required disabled
+        />
+      </div>
+        <div class="input-group mb-3 col-lg-4">
+        <span class="input-group-text"
+          >Option 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+        >
+        <input
+          type="text"
+          name="option_2"
+          id="option_2"
+          class="form-control"
+          value="{{question.option_2}}"
+          required disabled
+        />
+      </div>
+
+        <div class="input-group mb-3 col-lg-4">
+        <span class="input-group-text"
+          >Option 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+        >
+        <input
+          type="text"
+          name="option_3"
+          id="option_3"
+          class="form-control"
+          value="{{question.option_3}}"
+          required disabled
+        />
+      </div>
+
+        <div class="input-group mb-3 col-lg-4">
+        <span class="input-group-text"
+          >Option 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+        >
+        <input
+          type="text"
+          name="option_4"
+          id="option_4"
+          class="form-control"
+          value="{{question.option_4}}"
+          required disabled
+        />
+      </div>
+
+        <div class="input-group mb-1 col-lg-4">
+        <span class="input-group-text">Correct Option&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <select class="form-select" name="correct_option" id="correct_option" disabled>
+          <option selected>{{question.correct_option}}</option>
+        </select>
+      </div>
+
+      </div>
+
+
+      <div class="col-lg-12 mt-3 gap-3">
+        <input type="submit" value="Delete Question" class="btn btn-danger" />
+        <a class="btn btn-warning" href="{{url_for('admin_dashboard')}}"
+          >Go Back</a
+        >
+      </div>
+    </div>
+  </div>
+</form>
+
+{% endblock %} {% block script %} {% endblock %}

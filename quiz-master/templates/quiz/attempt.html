@@ -1,0 +1,196 @@
+{% extends 'base.html' %} {% block title %} Quiz Master {% endblock %} {% block
+content %}
+<h1 class="h1 text-center text-white mt-3">{{quiz.chapter.name}} Quiz</h1>
+
+<div class="mx-auto col-lg-10 bg-secondary rounded py-2 my-5">
+  <form
+  method="post"
+  action="/quiz/attempt?quiz={{quiz_id}}"
+  onsubmit="return validateForm()"
+  id="attemptQuizForm"
+  >
+    <div class="row px-5 mx-1 my-2">
+      <div class="col-lg-11 "></div>
+      <div class="col-lg-1 text-center bg-dark rounded py-auto">
+            <p class="py-2 my-0 text-white" id="demo">00: 00:   00</p>
+          </div>
+    </div>
+    {% set count = namespace(value=1) %}
+  {% for question in quiz.questions %}
+
+
+  <div class="card text-white bg-dark mx-5 mb-2" id="ques{{count.value}}" {% if loop.index>1 %} style="display:none"{% endif %}>
+      <div class="mx-3 pt-3"><h1>{{loop.index}}/{{quiz.questions|length}}</h1></div>
+    <fieldset>
+      <legend class="card-header">{{question.question_title}}</legend>
+      <div class="card-body">
+        <h3 class="card-title my-4">{{question.question_statement}}</h3>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="q{{ question.id }}"
+              value="{{ question.option_1 }}"
+            />
+            {{ question.option_1 }}
+          </label>
+        </div>
+        <br />
+        <div class="form-check">
+          <label class="form-check-label">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="q{{ question.id }}"
+              value="{{ question.option_2 }}"
+            />
+            {{ question.option_2 }}
+          </label>
+        </div>
+        <br />
+        <div class="form-check">
+          <label class="form-check-label">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="q{{ question.id }}"
+              value="{{ question.option_3 }}"
+            />
+            {{ question.option_3 }}
+          </label>
+        </div>
+        <br />
+        <div class="form-check">
+          <label class="form-check-label">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="q{{ question.id }}"
+              value="{{ question.option_4 }}"
+            />
+            {{ question.option_4 }}
+          </label>
+        </div>
+        <br />
+      </div>
+    </fieldset>
+  </div>
+    {% set count.value = count.value + 1 %}
+  {% endfor %}
+      {% if quiz.questions|length > 1 %}
+    <div class="row">
+      <div class="col-lg-12 text-center">
+          <button type="button" id="prevBtn" class="btn btn-primary" onclick="prevQues()">Previous</button>
+          <button type="button" id="nextBtn" class="btn btn-primary" onclick="nextQues()">Next</button>
+      <button type="submit" class="btn btn-success mx-auto my-3" id="submitBtn" style="display:none;">Submit Quiz</button>
+      </div>
+        {% else %}
+        <div class="row">
+        <div class="col-lg-12 text-center">
+        <button type="submit" class="btn btn-success mx-auto my-3" id="submitBtn">Submit Quiz</button>
+      </div>
+        {% endif %}
+
+    </div>
+
+</form>
+
+</div>
+{% endblock %}
+
+{% block script %}
+
+{% if quiz.questions|length > 1 %}
+var forcedSubmit=false;
+var curQues=1;
+if(curQues==1){
+document.getElementById("prevBtn").disabled=true;
+}
+
+function nextQues(){
+if(curQues=={{quiz.questions|length}}-1){
+document.getElementById("nextBtn").disabled=true;
+}
+else{
+document.getElementById("nextBtn").disabled=false;
+}
+if(curQues<{{quiz.questions|length}}){
+document.getElementById("ques"+curQues).style.display="none";
+curQues++;
+document.getElementById("ques"+curQues).style.display="block";
+}
+if(curQues!=1){
+    document.getElementById("prevBtn").disabled=false;
+}
+if(curQues=={{quiz.questions|length}}){
+document.getElementById("submitBtn").style.display="block";
+}
+}
+
+function prevQues(){
+if(curQues<={{quiz.questions|length}} && curQues>1){
+document.getElementById("ques"+curQues).style.display="none";
+curQues--;
+document.getElementById("ques"+curQues).style.display="block";
+}
+if(curQues==1){
+    document.getElementById("prevBtn").disabled=true;
+    document.getElementById("nextBtn").disabled=false;
+}
+
+if(curQues!={{quiz.questions|length}}){
+document.getElementById("submitBtn").style.display="none";
+}
+}
+{% endif %}
+
+function validateForm() {
+  {% for q in quiz.questions %}
+  if($('input[name="q{{q.id}}"]:checked').val()==undefined && forcedSubmit==false){
+    alert("Please Fill All Question");
+    return false;
+  }
+  {% endfor %}
+
+}
+    var today=new Date();
+    today.setHours(today.getHours()+{{quiz.hour_duration}});
+    today.setMinutes(today.getMinutes()+{{quiz.min_duration}});
+
+    let deadline=today.getTime();
+
+    let x = setInterval(function () {
+        // Getting current time in required format
+        let now = new Date().getTime();
+
+        // Calculating the difference
+        let t = deadline - now;
+        console.log(t);
+
+        let hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        let minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((t % (1000 * 60)) / 1000);
+
+        if(hours<10){
+            hours="0"+hours;
+        }
+        if(minutes<10){
+            minutes="0"+minutes;
+        }
+        if(seconds<10){
+            seconds="0"+seconds;
+        }
+
+        document.getElementById("demo").innerHTML = hours + ": " + minutes + ": " + seconds;
+
+        if (t < 0) {
+            clearInterval(x);
+            forcedSubmit=true;
+            document.getElementById("attemptQuizForm").submit();
+            document.getElementById("demo")
+                .innerHTML = "Submitted";
+        }
+    }, 1000);
+
+{% endblock %}

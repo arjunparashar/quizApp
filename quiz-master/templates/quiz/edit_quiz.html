@@ -1,0 +1,98 @@
+{% extends 'base.html' %} {% block title %} Quiz Master {% endblock %} {% block
+content %} {% include 'admin/adminNav.html' %}
+
+<form
+  method="post"
+   id="editQuizForm"
+  class="text-center py-4 mt-5 text-white"
+  action="/quiz/edit?quiz={{quiz_id}}"
+   onsubmit="return validateForm()"
+>
+  <h1 class="h3 text-center text-white">Edit Quiz</h1>
+  <div class="row col-lg-12 pt-5 mx-auto">
+    <div class="col-lg-6 mx-auto">
+        <div class="input-group mb-3 col-lg-4">
+        <span class="input-group-text"
+          >Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+        >
+        <input
+          type="date"
+          name="date"
+          id="date"
+          class="form-control"
+          required
+          value="{{quiz.date_of_quiz}}"
+        />
+      </div>
+            <div class="input-group mb-3 col-lg-4">
+        <span class="input-group-text"
+          >Total Marks</span
+        >
+        <input
+          type="number"
+          name="max_marks"
+          id="max_marks"
+          class="form-control"
+          value="{{quiz.max_marks}}"
+          required
+        />
+      </div>
+        <div class="input-group mb-3 col-lg-4">
+        <span class="input-group-text">Duration</span>
+        <select class="form-select" name="hours" id="hours">
+          <option selected>{{quiz.hour_duration}}</option>
+          <option>00</option>
+          <option>01</option>
+          <option>02</option>
+          <option>03</option>
+          <option>04</option>
+        </select>
+        <select class="form-select" name="minutes" id="minutes">
+          <option selected>{{quiz.min_duration}}</option>
+          <option>00</option>
+          <option>05</option>
+          <option>10</option>
+          <option>15</option>
+          <option>20</option>
+          <option>25</option>
+          <option>30</option>
+          <option>35</option>
+          <option>40</option>
+          <option>45</option>
+          <option>50</option>
+          <option>55</option>
+          <option>60</option>
+        </select>
+      </div>
+
+      <div class="col-lg-12 mt-3 gap-3">
+        <input type="submit" value="Edit Quiz" class="btn btn-success" />
+        <input type="reset" value="Reset" class="btn btn-warning" />
+      </div>
+    </div>
+  </div>
+</form>
+
+{% endblock %}
+
+
+{% block script %}
+function validateForm() {
+  let x = document.forms["editQuizForm"]["hours"].value;
+  let y = document.forms["editQuizForm"]["minutes"].value;
+  if (x == "Hours") {
+    alert("Hours must be filled out");
+    return false;
+  }
+  else if(y=="Minutes"){
+    alert("Minutes must be filled out");
+    return false;
+  }
+  else if(x=="00" && y=="00"){
+    alert("Duration Can Not be 00:00");
+    return false;
+}
+}
+{% endblock %}
+
+

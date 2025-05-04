@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Register
+{% endblock %}
+
+{% block content %}
+{% include 'homeNav.html' %}
+<h1 class="h1 text-center text-white mt-3">Welcome to Quiz Master</h1>
+<form method="post" id="registerForm" onsubmit="return validateForm()" class="text-center py-4 mx-5 mt-3 text-white" action="/register">
+    <h1 class="h3 text-center text-white">Signup</h1>
+
+    <div class="row col-lg-12 pt-5 mx-auto">
+        <div class="col-lg-6 mx-auto">
+            <div class="input-group mb-3 col-lg-4">
+              <span class="input-group-text">Username&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <input type="text" name="userid" id="userid" class="form-control" required/>
+            </div>
+            <div class="input-group mb-3 col-lg-4">
+              <span class="input-group-text">Password&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <input type="password" name="password" id="password"  class="form-control" required/>
+            </div>
+
+            <div class="input-group mb-3 col-lg-4">
+              <span class="input-group-text">Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <input type="text" name="name" id="name" class="form-control" required/>
+            </div>
+
+            <div class="input-group mb-3 col-lg-4">
+              <span class="input-group-text">Qualification&nbsp;</span>
+                <select class="form-select" aria-label="Default select example" name="qualification" id="qualification">
+                  <option selected>Select Qualification</option>
+                  <option value="Bachelor's">Bachelor's</option>
+                  <option value="Master's">Master's</option>
+                  <option value="High School">High School</option>
+                    <option value="Diploma">Diploma</option>
+                </select>
+            </div>
+
+
+            <div class="input-group mb-3 col-lg-4">
+              <span class="input-group-text">Date Of Birth</span>
+              <input type="date" name="dob" id="dob" class="form-control" required/>
+            </div>
+        </div>
+    </div>
+
+<div class="col-lg-12 mt-3">
+    <input type="submit" value="Register" class="btn btn-success">
+        <a class="btn btn-warning float-mid"  href="{{url_for('login')}}">
+            Existing User?
+        </a>
+    </div>
+</form>
+{% endblock %}
+
+{% block style %}
+<style>
+    form{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    }
+</style>
+{% endblock %}
+
+{% block script %}
+function validateForm() {
+  let x = document.forms["registerForm"]["qualification"].value;
+  if (x == "Select Qualification") {
+    alert("Qualification must be filled out");
+    return false;
+  }
+}
+{% endblock %}

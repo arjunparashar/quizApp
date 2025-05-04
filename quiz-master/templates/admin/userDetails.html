@@ -1,0 +1,41 @@
+{% extends 'base.html' %} {% block title %} Quiz Master {% endblock %} {% block
+content %} {% include 'admin/adminNav.html' %}
+<h1 class="h1 text-center text-white mt-3 mb-5">User Details</h1>
+
+<table
+          class="table table-dark table-bordered rounded rounded-lg text-center"
+        >
+          <thead>
+            <tr class="">
+                <th scope="col">User ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Qualification</th>
+                <th scope="col">Date of Birth</th>
+              <th scope="col" width="20%">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in users %}
+            <tr>
+              <th scope="row">{{user.userid}}</th>
+                <td>{{user.name}}</td>
+              <td>{{user.qualification}}</td>
+                <td>{{user.dob}}</td>
+              <td>
+<!--                <a-->
+<!--                  href="/user/edit?user={{user.id}}"-->
+<!--                  class="btn btn-sm btn-primary"-->
+<!--                  >Edit</a-->
+<!--                >&nbsp;-->
+                <a
+                  href="/user/delete?user={{user.id}}"
+                  class="btn btn-sm btn-danger"
+                  >Delete</a
+                >
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+{% endblock %}

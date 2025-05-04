@@ -1,0 +1,154 @@
+{% extends 'base.html' %} {% block title %} Quiz Master {% endblock %} {% block
+content %} {% include 'admin/adminNav.html' %}
+
+<form
+  method="post"
+  class="text-center py-4 mt-5 text-white"
+  action="/question/add?quiz={{quiz_id}}"
+  id="addQuestionForm"
+  onsubmit="return validateForm()"
+>
+  <h1 class="h3 text-center text-white">Add Question</h1>
+  <div class="row col-lg-12 pt-5 mx-auto">
+    <div class="col-lg-6 mx-auto">
+      <div class="input-group mb-3 col-lg-4">
+        <span class="input-group-text">Chapter&nbsp;</span>
+        <select class="form-select" name="chapter" id="chapter">
+          <option selected>{{quiz.chapter.name}}</option>
+        </select>
+      </div>
+      <div class="input-group mb-3 col-lg-4">
+        <span class="input-group-text"
+          >Question
+          Title&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+        >
+        <input
+          type="text"
+          name="question_title"
+          id="question_title"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <div class="input-group mb-3 col-lg-4">
+        <span class="input-group-text"
+          >Question Statement&nbsp;&nbsp;&nbsp;</span
+        >
+        <textarea
+          class="form-control"
+          id="question_statement"
+          name="question_statement"
+          rows="3"
+          required
+        ></textarea>
+      </div>
+
+      <div class="border border-secondary rounded p-2">
+        <div class="input-group mb-3 col-lg-4">
+        <span class="input-group-text"
+          >Option 1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+        >
+        <input
+          type="text"
+          name="option_1"
+          id="option_1"
+          class="form-control"
+          onchange="optionChange()"
+          required
+        />
+      </div>
+        <div class="input-group mb-3 col-lg-4">
+        <span class="input-group-text"
+          >Option 2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+        >
+        <input
+          type="text"
+          name="option_2"
+          id="option_2"
+          class="form-control"
+          onchange="optionChange()"
+          required
+        />
+      </div>
+
+        <div class="input-group mb-3 col-lg-4">
+        <span class="input-group-text"
+          >Option 3&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+        >
+        <input
+          type="text"
+          name="option_3"
+          id="option_3"
+          class="form-control"
+          onchange="optionChange()"
+          required
+        />
+      </div>
+
+        <div class="input-group mb-3 col-lg-4">
+        <span class="input-group-text"
+          >Option 4&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+        >
+        <input
+          type="text"
+          name="option_4"
+          id="option_4"
+          class="form-control"
+          onchange="optionChange()"
+          required
+        />
+      </div>
+
+        <div class="input-group mb-1 col-lg-4">
+        <span class="input-group-text">Correct Option&nbsp;&nbsp;</span>
+        <select class="form-select" name="correct_option" id="correct_option">
+          <option selected>Select Option</option>
+          <option id="opt1"></option>
+          <option id="opt2"></option>
+          <option id="opt3"></option>
+          <option id="opt4"></option>
+        </select>
+      </div>
+
+      </div>
+
+      <div class="col-lg-12 mt-3 gap-3">
+        <input type="submit" value="Add Question" class="btn btn-success" />
+        <input type="reset" value="Reset" class="btn btn-warning" />
+      </div>
+    </div>
+  </div>
+</form>
+{% endblock %}
+
+{% block script %}
+
+function optionChange(){
+document.getElementById("opt1").innerText=document.getElementById("option_1").value;
+document.getElementById("opt2").innerText=document.getElementById("option_2").value;
+document.getElementById("opt3").innerText=document.getElementById("option_3").value;
+document.getElementById("opt4").innerText=document.getElementById("option_4").value;
+}
+
+function validateForm() {
+  let x = document.forms["addQuestionForm"]["correct_option"].value;
+let opt1 = document.forms["addQuestionForm"]["option_1"].value;
+let opt2 = document.forms["addQuestionForm"]["option_2"].value;
+let opt3 = document.forms["addQuestionForm"]["option_3"].value;
+let opt4 = document.forms["addQuestionForm"]["option_4"].value;
+console.log(opt1);
+console.log(opt2);
+console.log(opt3);
+console.log(opt4);
+console.log(x!=opt1 && x!=opt2 && x!=opt3 && x!=opt4);
+  if (x == "Select Option") {
+    alert("Please Select an Option");
+    return false;
+  }
+else if(x!=opt1 && x!=opt2 && x!=opt3 && x!=opt4){
+alert("Please Select Correct Option");
+    return false;
+}
+}
+{% endblock %}

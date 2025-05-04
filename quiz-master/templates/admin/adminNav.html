@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-xl py-2 bg-dark border-bottom border-body" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Quiz Master</a>
+    <div class="d-flex">
+        <li>
+           <a href="{{url_for('admin_dashboard')}}" class="btn btn-sm  btn-primary mt-2">
+               Home
+           </a>
+            <a href="{{url_for('quiz_dashboard')}}" class="btn btn-sm btn-outline-primary mt-2">
+               Quiz
+           </a>
+            <a href="{{url_for('user_details')}}" class="btn btn-sm btn-outline-primary mt-2">
+               User Details
+           </a>
+            <a href="{{url_for('admin_summary')}}" class="btn btn-sm btn-outline-primary mt-2">
+               Summary
+           </a>
+
+        </li>
+                    <form action="/adminSearch" method="post" class="px-3 pt-2">
+                <input type="text" name="param" class="form-control form-control-sm" placeholder="Search">
+            </form>
+        <li class="pt-2">
+            <span class="text-white">Welcome, {{session['user_id']}}</span>
+        </li>
+        <li>
+          <a href="/logout" class="btn btn-danger">Logout</a>
+        </li>
+    </div>
+  </div>
+</nav>
+<!--
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+-->
+<style>
+    .navbar{width:100%;padding:0;}
+</style>

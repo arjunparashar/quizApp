@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-xl py-2 bg-dark border-bottom border-body" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Quiz Master</a>
+    <div class="d-flex">
+        <li>
+           <a href="{{url_for('index')}}" class="btn btn-warning">
+               Home
+           </a>
+        </li>
+        <li>
+          <a href="/login" class="btn btn-success">Login</a>
+        </li>
+        <li>
+          <a href="/register" class="btn btn-primary">Signup</a>
+        </li>
+    </div>
+  </div>
+</nav>
+<!--
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+-->
+<style>
+    .navbar{width:100%;padding:0;}
+</style>

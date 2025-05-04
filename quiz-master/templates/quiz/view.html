@@ -1,0 +1,71 @@
+{% extends 'base.html' %} {% block title %} Quiz Master {% endblock %} {% block
+content %} {% include 'user/userNav.html' %}
+<h1 class="h1 text-center text-white mt-3">{{quiz.chapter.name}} Quiz</h1>
+
+<div class="row col-lg-12 pt-5 mx-auto">
+    <div class="col-lg-6 mx-auto">
+      <div class="input-group mb-3 col-lg-4">
+        <span class="input-group-text">Subject&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <input
+          type="text"
+          name="subject"
+          id="subject"
+          class="form-control"
+          disabled
+          value="{{quiz.chapter.subject.name}}"
+        />
+      </div>
+      <div class="input-group mb-3 col-lg-4">
+        <span class="input-group-text">Chapter&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <input
+          type="text"
+          name="chapter"
+          id="chapter"
+          class="form-control"
+          disabled
+          value="{{quiz.chapter.name}}"
+        />
+      </div>
+
+      <div class="input-group mb-3 col-lg-4">
+        <span class="input-group-text">No of Questions</span>
+        <input
+          type="text"
+          name="questions"
+          id="questions"
+          class="form-control"
+          disabled
+          value="{{quiz.questions|length}}"
+        />
+      </div>
+      <div class="input-group mb-3 col-lg-4">
+        <span class="input-group-text"
+          >Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+        >
+        <input
+          type="date"
+          name="date"
+          id="date"
+          class="form-control"
+          disabled
+          value="{{quiz.date_of_quiz}}"
+        />
+      </div>
+      <div class="input-group mb-3 col-lg-4">
+        <span class="input-group-text">Duration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <input
+          type="duration"
+          name="date"
+          id="duration"
+          class="form-control"
+          disabled
+          value="{{quiz.hour_duration}} : {{quiz.min_duration}}"
+        />
+      </div>
+      <a href="{{url_for('user_dashboard')}}" class="btn btn-warning">Go Back</a>
+    </div>
+  </div>
+
+
+{% endblock %}
+

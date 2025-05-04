@@ -1,0 +1,156 @@
+{% extends 'base.html' %} {% block title %} Quiz Master {% endblock %} {% block
+content %} {% include 'admin/adminNav.html' %}
+<h1 class="h1 text-center text-white mt-3 mb-5">Admin Search</h1>
+<h1>
+</h1>
+{% if chapters|length > 0 %}
+<div class="col-sm-8 mx-auto my-5">
+    <div class="card text-bg-secondary mb-3">
+      <div class="card-header font-bold text-center text-xl">
+          <h3>
+              Chapters
+          </h3>
+      </div>
+      <div class="card-body">
+        <table
+          class="table table-dark table-rounded table-bordered rounded rounded-lg text-center"
+        ><thead>
+            <tr class="">
+              <th scope="col">Chapter</th>
+                <th scope="col">Subject</th>
+              <th scope="col">Description</th>
+              <th scope="col"  width="30%">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for chapter in chapters %}
+            <tr>
+              <th scope="row">{{chapter.name}}</th>
+                <td>{{chapter.subject.name}}</td>
+              <td>{{chapter.desc}}</td>
+              <td>
+                <a
+                  href="/chapter/edit?chapter={{chapter.id}}"
+                  class="btn btn-sm btn-primary"
+                  >Edit</a
+                >&nbsp;
+                <a
+                  href="/chapter/delete?chapter={{chapter.id}}"
+                  class="btn btn-sm btn-primary"
+                  >Delete</a
+                >
+                <a
+                  href="/quiz/add?chapter={{chapter.id}}"
+                  class="btn btn-sm btn-warning text-right"
+                  >Add Quiz</a
+                >
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% if subjects|length > 0 %}
+<div class="col-sm-8 mx-auto my-5">
+    <div class="card text-bg-secondary mb-3">
+      <div class="card-header font-bold text-center text-xl">
+          <h3>
+              Subject
+          </h3>
+      </div>
+      <div class="card-body">
+        <table
+          class="table table-dark table-rounded table-bordered rounded rounded-lg text-center"
+        ><thead>
+            <tr class="">
+                <th scope="col">Subject</th>
+              <th scope="col">Description</th>
+              <th scope="col"  width="30%">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for subject in subjects %}
+            <tr>
+              <th scope="row">{{subject.name}}</th>
+              <td>{{subject.desc}}</td>
+              <td>
+                <a
+          href="/subject/edit?subject={{subject.id}}"
+          class="btn btn-primary btn-sm text-right"
+          >Edit Subject</a
+        >
+        <a
+          href="/subject/delete?subject={{subject.id}}"
+          class="btn btn-danger btn-sm text-right"
+          >Delete Subject</a
+        >
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% if users|length > 0 %}
+<div class="col-sm-8 mx-auto my-5">
+    <div class="card text-bg-secondary mb-3">
+      <div class="card-header font-bold text-center text-xl">
+          <h3>
+              Users
+          </h3>
+      </div>
+      <div class="card-body">
+        <table
+          class="table table-dark table-rounded table-bordered rounded rounded-lg text-center"
+        ><thead>
+            <tr class="">
+                <th scope="col">User ID</th>
+              <th scope="col">Name</th>
+              <th scope="col">Qualification</th>
+                <th scope="col">Date of Birth</th>
+                <th scope="col">Date of Registration</th>
+              <th scope="col" width="10%">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for user in users %}
+            <tr>
+              <th scope="row">{{user.userid}}</th>
+                <td>{{user.name}}</td>
+              <td>{{user.qualification}}</td>
+                <td>{{user.dob}}</td>
+                <td>{{user.created_on}}</td>
+              <td>
+<!--                <a-->
+<!--                  href="/user/edit?user={{user.id}}"-->
+<!--                  class="btn btn-sm btn-primary"-->
+<!--                  >Edit</a-->
+<!--                >&nbsp;-->
+                <a
+                  href="/user/delete?user={{user.id}}"
+                  class="btn btn-sm btn-danger"
+                  >Delete</a
+                >
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% if subjects|length == 0 and  subjects|length == 0 and subjects|length == 0%}
+<div class="col-lg-12 mx-auto text-center text-white">
+<h3 >No Search Results Found</h3>
+</div>
+
+{% endif %}
+{% endblock %}

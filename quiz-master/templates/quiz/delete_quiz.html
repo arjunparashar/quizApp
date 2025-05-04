@@ -1,0 +1,67 @@
+{% extends 'base.html' %} {% block title %} Quiz Master {% endblock %} {% block
+content %} {% include 'admin/adminNav.html' %}
+
+<form
+  method="post"
+  class="text-center py-4 mt-5 text-white"
+  action="/quiz/delete?quiz={{quiz_id}}"
+>
+  <h1 class="h3 text-center text-white">Delete Quiz</h1>
+  <div class="row col-lg-12 pt-5 mx-auto">
+    <div class="col-lg-6 mx-auto">
+      <div class="input-group mb-3 col-lg-4">
+        <span class="input-group-text"
+          >Chapter</span
+        >
+        <input
+          type="text"
+          name="name"
+          id="name"
+          class="form-control"
+          required
+          value="{{quiz.chapter.name}}"
+          disabled
+        />
+      </div>
+
+        <div class="input-group mb-3 col-lg-4">
+        <span class="input-group-text"
+          >Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span
+        >
+        <input
+          type="text"
+          name="date"
+          id="date"
+          class="form-control"
+          required
+          value="{{quiz.date_of_quiz}}"
+          disabled
+        />
+      </div>
+
+        <div class="input-group mb-3 col-lg-4">
+        <span class="input-group-text"
+          >Duration&nbsp;&nbsp;&nbsp;&nbsp;</span
+        >
+        <input
+          type="text"
+          name="duration"
+          id="duration"
+          class="form-control"
+          required
+          value="{{quiz.hour_duration}}:{{quiz.min_duration}}"
+          disabled
+        />
+      </div>
+
+      <div class="col-lg-12 mt-3 gap-3">
+        <input type="submit" value="Delete Quiz" class="btn btn-danger" />
+        <a class="btn btn-warning" href="{{url_for('quiz_dashboard')}}"
+          >Go Back</a
+        >
+      </div>
+    </div>
+  </div>
+</form>
+
+{% endblock %} {% block script %} {% endblock %}

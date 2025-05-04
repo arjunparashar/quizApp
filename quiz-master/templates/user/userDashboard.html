@@ -1,0 +1,79 @@
+{% extends 'base.html' %} {% block title %} Quiz Master {% endblock %} {% block
+content %} {% include 'user/userNav.html' %}
+<h1 class="h1 text-center text-white mt-3">User Dashboard</h1>
+
+{% if quizzes|length>0 %}
+<div class="col-sm-8 mx-auto my-5">
+    <div class="card text-bg-secondary mb-3">
+      <div class="card-header font-bold text-center text-xl">
+          <h3>
+              Upcoming Quizzes
+          </h3>
+      </div>
+      <div class="card-body">
+        <table
+          class="table table-dark table-rounded table-bordered rounded rounded-lg text-center"
+        >
+          <thead>
+
+            <tr class="">
+                <th scope="col">Subject</th>
+              <th scope="col">Chapter</th>
+                <th scope="col"width="15%">Date Of Quiz</th>
+                <th scope="col"width="15%">Duration</th>
+              <th scope="col"width="15%">No Of Questions</th>
+              <th scope="col" width="20%">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for quiz in quizzes %}
+            {% if quiz.questions|length > 0%}
+            <tr>
+                <td>{{quiz.chapter.subject.name}}</td>
+              <td>{{quiz.chapter.name}}</td>
+
+                <td>{{quiz.date_of_quiz}}</td>
+                <td>{{quiz.hour_duration}} : {{quiz.min_duration}}</td>
+              <td>{{quiz.questions|length}}</td>
+              <td>
+                  {% if (quiz.date_of_quiz != todays_date) or (quiz.id in attempted)%}
+                        <a
+                  href="/quiz/attempt?quiz={{quiz.id}}"
+                  class="btn btn-sm btn-primary disabled"
+                  >Attempt</a
+                >&nbsp;
+                  {% else %}
+     <a
+                  href="/quiz/attempt?quiz={{quiz.id}}"
+                  class="btn btn-sm btn-primary"
+                  >Attempt</a
+                >&nbsp;
+                    {% endif %}
+                <a
+                  href="/quiz/view?quiz={{quiz.id}}"
+                  class="btn btn-sm btn-primary"
+                  >View</a
+                >
+              </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% else %}
+<div class="col-lg-12 pt-5 mx-auto text-center text-white">
+<h3 >No Upcoming Quizzes Found</h3>
+</div>
+{% endif %}
+{% endblock %} {% block script %} {% endblock %}
+
+{% block style %}
+table a.disabled {
+  pointer-events: none;
+  cursor: default;
+}
+
+{% endblock %}
