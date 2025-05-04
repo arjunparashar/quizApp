@@ -1,2 +1,2 @@
 # quiz-master
-This is a Quiz App For MAD1
+This is a Quiz Application made for the Modern Application Development Subject for IIT Madras Online BS Degree
